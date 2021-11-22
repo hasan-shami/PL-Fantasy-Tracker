@@ -31,4 +31,10 @@ There is loads of room for improvement, with different degrees of complexity, in
  - Calculate points per gameweek
  - Updating the master file on Google Sheets rather than using a local file, to enable updating the file from different devices
  - Extract further datapoints (goals, assists, clean sheets, etc..)
+
+
+![image](https://user-images.githubusercontent.com/40544032/142849908-7a467a1f-0cee-4e4d-949d-f6c734e535bd.png)
+
+![image](https://user-images.githubusercontent.com/40544032/142849773-2f551a3b-9733-49a6-a706-41dcce55c8bb.png)
+
  - Add a data visualization element where players can be visually filtered and plots can be automatically generated
