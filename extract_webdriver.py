@@ -4,6 +4,7 @@ import datetime
 import time
 from selenium.common.exceptions import NoSuchElementException
 
+
 # Initialize. When adding merged_df functionalities, put this function in another py file
 def initialize_driver():
     path = r'C:\Users\Hasan\chromedriver_win32\chromedriver.exe'  # Context for OS
@@ -60,11 +61,11 @@ def format_players(players_list):
     df['Form'] = df['Stats'].str[2].apply(pd.to_numeric)
     df['Points'] = df['Stats'].str[3].apply(pd.to_numeric)
     df.drop(columns='Stats', inplace=True)
-    df['Key'] = df['Name'] + "/" + df["Position"] + "/" + df["Team"] # Need to check for duplicate key & find solution
+    df['Key'] = df['Name'] + "/" + df["Position"] + "/" + df["Team"]  # Need to check for duplicate key & find solution
     df['Date'] = datetime.datetime.now()
     # .strftime("%Y-%m-%d %H:%M:%S")
 
-    duplicate_keys=df[df.duplicated(subset=['Key'])][['Name']]
+    duplicate_keys = df[df.duplicated(subset=['Key'])][['Name']]
     # if found, update the Name
     # method possible: save exact page number and div allocation for each player
     return df
