@@ -3,16 +3,19 @@ from differences import *
 from extract_webdriver import *
 from extract_json import *
 
-def export_results(df, mode):
+def export_results(df, mode, upload_all):
     if mode == 'excel':
         master_df = pd.read_excel("FPL_Master.xlsx")
         master_df = master_df.append(df)
         master_df.to_excel("FPL_Master.xlsx", index=False)
     if mode == 'sheets':
         master_df = download_sheet()
-        master_df_new = master_df.copy().append(df)
-        master_df_new.reset_index(inplace=True, drop=True)
-        upload_sheet(master_df_new)
+        if upload_all:
+            master_df_new = master_df.copy().append(df)
+            master_df_new.reset_index(inplace=True, drop=True)
+            upload_sheet(master_df_new)
+        else:
+            append_rows(df)
     return master_df
 
 
@@ -26,5 +29,5 @@ if __name__ == "__main__":
         df = format_players(players_list)
     elif implementation == 'json':
         df = get_players_data()
-    master_df = export_results(df, 'sheets')
+    master_df = export_results(df, 'sheets', upload_all = False)
     check_differences(df, master_df, price_only=False)

@@ -24,3 +24,10 @@ def download_sheet():
 def upload_sheet(df):
     # Upload existing data
     d2g.upload(df, spreadsheet_key, wks_name, credentials=credentials, row_names=False, col_names=True)
+
+def append_rows(df):
+    sh = gc.open_by_key(spreadsheet_key)
+    df['Date'] = df['Date'].astype(str)
+    df=df.fillna('')
+    values = df.values.tolist()
+    sh.values_append(wks_name,{'valueInputOption': 'USER_ENTERED'},{'values': values})

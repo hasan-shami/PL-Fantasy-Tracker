@@ -2,19 +2,19 @@ import pandas as pd
 
 
 def check_price_change(df):
-    df['Cost_old'] = df['Cost_old'].astype(float, errors='raise')
+    df['Cost_old'] = df['Cost_old'].astype(int, errors='raise')
     cost_df = df.loc[~(df['Cost_new'] == df['Cost_old'])][['Key', 'Cost_new', 'Cost_old']]
     return cost_df
 
 
 def check_form_change(df):
-    df['Form_old'] = df['Form_old'].astype(float, errors='raise')
+    df['Form_old'] = df['Form_old'].astype(int, errors='raise')
     form_df = df.loc[~(df['Form_new'] == df['Form_old'])][['Key', 'Form_new', 'Form_old']]
     return form_df
 
 
 def check_points(df):
-    df['Points_old'] = df['Points_old'].astype(float, errors='raise')
+    df['Points_old'] = df['Points_old'].astype(int, errors='raise')
     points_df = df.loc[~(df['Points_new'] == df['Points_old'])][['Key', 'Points_new', 'Points_old']]
     return points_df
 
