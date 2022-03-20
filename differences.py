@@ -19,9 +19,9 @@ def check_points(df):
     return points_df
 
 
-def check_differences(df, master_df, price_only):
-    last_run_date = master_df['Date'].max()
-    last_run_df = master_df[master_df['Date'] == last_run_date]
+def check_differences(df, last_run_df, price_only):
+    # last_run_date = master_df['Date'].max()
+    # last_run_df = master_df[ master_df['Date'] == last_run_date]
     if price_only:  # Hourly
         merged_df = df.merge(last_run_df[['Cost', 'Key', 'Date']], how='left',
                              on='Key',

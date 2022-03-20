@@ -15,19 +15,26 @@ spreadsheet_key = '1u40di-ObKV-K0zBD3DHOAZJrBAWLnKe-8Cck6xD48_8'
 wks_name = 'Master'
 
 
-def download_sheet():
+def download_sheet(sheet):
     # Download df
-    dfd = g2d.download(spreadsheet_key, wks_name, credentials=credentials, col_names=True)
+    dfd = g2d.download(spreadsheet_key, sheet, credentials=credentials, col_names=True)
     return dfd
 
 
-def upload_sheet(df):
+def upload_sheet(df, sheet):
     # Upload existing data
-    d2g.upload(df, spreadsheet_key, wks_name, credentials=credentials, row_names=False, col_names=True)
+    d2g.upload(df, spreadsheet_key, sheet, credentials=credentials, row_names=False, col_names=True)
 
-def append_rows(df):
+
+def append_rows(df, sheet):
     sh = gc.open_by_key(spreadsheet_key)
-    df['Date'] = df['Date'].astype(str)
-    df=df.fillna('')
-    values = df.values.tolist()
-    sh.values_append(wks_name,{'valueInputOption': 'USER_ENTERED'},{'values': values})
+    json_df = df.copy()  # JSON specific formatting for upload
+    json_df['Date'] = json_df['Date'].astype(str)
+    json_df = json_df.fillna('')
+    values = json_df.values.tolist()
+    sh.values_append(sheet, {'valueInputOption': 'USER_ENTERED'}, {'values': values})
+
+
+def clear_sheet(sheet):
+    sh = gc.open_by_key(spreadsheet_key)
+    sh.values_clear(sheet)
