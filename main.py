@@ -11,15 +11,18 @@ def export_results(df, mode, upload_all):
         master_df.to_excel("FPL_Master.xlsx", index=False)
     if mode == 'sheets':
         if upload_all:
-            master_df = download_sheet()
+            master_df = download_sheet('Master')
             master_df_new = master_df.copy().append(df)
             master_df_new.reset_index(inplace=True, drop=True)
             upload_sheet(master_df_new, 'Master')
             return master_df
         else:
             append_rows(df, 'Master')
+            old_df = download_sheet('Last')
             clear_sheet('Last')
             upload_sheet(df, 'Last')
+            return old_df
+
 
 
 if __name__ == "__main__":
