@@ -38,15 +38,15 @@ def check_differences(df, last_run_df, price_only):
 
         print("Checking form changes...")
         form_df = check_form_change(merged_df)
-        if len(form_df > 0):
-            send_emails("price", form_df)
+        if len(form_df)>0:
+            send_emails("Form", form_df)
 
         print("Checking points changes...")
         points_df = check_points(merged_df)
-        if len(points_df > 0):
-            send_emails("price", points_df)
+        if len(points_df) > 0:
+            send_emails("Points", points_df)
 
         print("Checking price changes...")
         cost_df = check_price_change(merged_df)
-        if len(cost_df > 0):
+        if len(cost_df) > 0:
             send_emails("price", cost_df)

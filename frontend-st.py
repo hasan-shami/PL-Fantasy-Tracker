@@ -13,8 +13,6 @@ def get_data():
     return master_df, selection_list
 
 master_df, selection_list = get_data()
-# fig = load_fig()
-# master_df = download_sheet('Master')
 st.header("FPL Price Track")
 choice = st.selectbox(
     "Choose a player",
@@ -27,9 +25,16 @@ df = master_df.loc[master_df['Key']==choice]
 #elif lookup_dict[choice] == 'Havertz':
  #   df = Havertz_df
 
-df
+st.subheader(choice.split("/")[0]+" data")
+st.dataframe(df[['Playing Chance','Cost','Selected By %','Form', 'Points','Date']],
+             width = 5000)
 df2 = df[['Points', 'Form', 'Cost', 'Date']].copy()
 df2['Date'] = pd.to_datetime(df2['Date'], format='%Y-%m-%d %H:%M:%S.%f')
 df2['Date'] = df2['Date'].dt.strftime('%y/%m/%d')
 #df2.set_index('Date',inplace=True)
-st.line_chart(df2[['Points', 'Form', 'Cost', 'Date']].set_index('Date'))
+
+st.write('\n')
+st.subheader(choice.split("/")[0]+" chart")
+options = st.multiselect("What stats would you like to see? (select one or multiple)", ['Points', 'Form', 'Cost'])
+options.append('Date')
+st.line_chart(df2[options].set_index('Date'),width=5000)
