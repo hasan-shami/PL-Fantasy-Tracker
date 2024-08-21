@@ -13,6 +13,7 @@ def get_data(data):
         players_df = pd.DataFrame(json['elements'])
         types_df = pd.DataFrame(json['element_types'])
         teams_df = pd.DataFrame(json['teams'])
+        events = pd.DataFrame(json['events']) # contains GW information
         return players_df, types_df, teams_df
     elif data == 'teams/types':
         types_df = pd.DataFrame(json['element_types'])
